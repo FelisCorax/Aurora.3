@@ -6,7 +6,7 @@ var/global/datum/elevator_controller/elevator_controller
 
 /datum/elevator_controller/proc/process()
 	for (var/datum/elevator/elevator in elevators)
-		if (elevator.status)
+		if (elevator.process_status)
 			elevator.process()
 
 /datum/elevator_controller/New()

@@ -1,4 +1,4 @@
-var/global/list/station_floors = list(1 = 1, 7 = 0, 8 = -1)
+var/global/list/station_floors = list("1" = 1, "7" = 0, "8" = -1)
 
 #define MOVE_UP 1
 #define MOVE_DOWN 2
@@ -75,7 +75,7 @@ var/global/list/station_floors = list(1 = 1, 7 = 0, 8 = -1)
 	elevator_doors = list()
 
 	for (var/obj/machinery/door/airlock/airlock in world)
-		if (airlock.id != "elevator_[elevator_id]")
+		if (airlock.id_tag != "elevator_[elevator_id]")
 			continue
 
 		if (!elevator_doors[airlock.z])
@@ -152,7 +152,7 @@ var/global/list/station_floors = list(1 = 1, 7 = 0, 8 = -1)
 	for (var/obj/machinery/door/airlock/airlock in elevator_doors[current_floor])
 		airlock.close()
 		airlock.locked = 1
-		airlock.update_icon
+		airlock.update_icon()
 
 	var/area/start_location = elevator_zones[current_floor]
 	var/area/end_location = elevator_zones[next_floor]
@@ -171,7 +171,7 @@ var/global/list/station_floors = list(1 = 1, 7 = 0, 8 = -1)
 	if (!floor_queue.len)
 		return 0
 
-	if (station_floors[next_floor] > current_floor)
+	if (station_floors[num2text(next_floor)] > current_floor)
 		return MOVE_UP
 	else
 		return MOVE_DOWN
