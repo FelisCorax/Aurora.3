@@ -223,7 +223,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 	if (!injected || !our)
 		return
-	if(blood_incompatible(injected.data["blood_type"],our.data["blood_type"],injected.data["species"],our.data["species"]) )
+	if(blood_incompatible(injected.data["blood_type"],our.data["blood_type"],injected.data["species"],our.data["species"]) && !(mind.vampire))
 		reagents.add_reagent("toxin",amount * 0.5)
 		reagents.update_total()
 	else
@@ -314,4 +314,6 @@ proc/blood_splatter(var/target,var/datum/reagent/blood/source,var/large)
 	if(source.data["virus2"])
 		B.virus2 = virus_copylist(source.data["virus2"])
 
+	B.fluorescent  = 0
+	B.invisibility = 0
 	return B

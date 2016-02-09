@@ -65,6 +65,7 @@ var/list/gamemode_cache = list()
 	var/kick_inactive = 0				//force disconnect for inactive players after this many minutes, if non-0
 	var/show_mods = 0
 	var/show_mentors = 0
+	var/show_auxiliary_roles = 0		//toggles all secondary staff members. Such as CCIAA, Devs, etcetera.
 	var/mods_can_tempban = 0
 	var/mods_can_job_tempban = 0
 	var/mod_tempban_max = 1440
@@ -153,6 +154,7 @@ var/list/gamemode_cache = list()
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
+	var/sql_whitelists = 0	//Defined whether the server uses an SQL based whitelist system, or the legacy one with two .txts. Config option in config.txt
 
 	var/simultaneous_pm_warning_timeout = 100
 
@@ -674,6 +676,12 @@ var/list/gamemode_cache = list()
 				if("aggressive_changelog")
 					config.aggressive_changelog = 1
 
+				if("sql_whitelists")
+					config.sql_whitelists = 1
+
+				if("show_auxiliary_roles")
+					config.show_auxiliary_roles = 1
+
 				else
 					log_misc("Unknown setting in configuration: '[name]'")
 
@@ -772,12 +780,6 @@ var/list/gamemode_cache = list()
 				sqllogin = value
 			if ("password")
 				sqlpass = value
-			if ("feedback_database")
-				sqlfdbkdb = value
-			if ("feedback_login")
-				sqlfdbklogin = value
-			if ("feedback_password")
-				sqlfdbkpass = value
 			if ("enable_stat_tracking")
 				sqllogging = 1
 			else
